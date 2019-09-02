@@ -5,44 +5,44 @@
 <mapper namespace="org.csu.tank.persistence.ItemDAO">
 
     <select id="searchItemList" parameterType="java.lang.String" resultType="org.csu.tank.domain.Item">
-select
-itemId
-productId
-name,
-price,
-logo,
-detail
-from item
-WHERE name like '%${keywords}%'
+        select
+        itemId
+        productId
+        name as itemName,
+        price,
+        logo,
+        detail
+        from item
+        WHERE name like '%${keywords}%'
   </select>
 
 
-    <select id="getItem" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Item">
-select itemId,productId,name,price,logo,detail
-from item
-where itemId = #{itemId}
+  <select id="getItem" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Item">
+      select itemId,productId,name as itemName,price,logo,detail
+      from item
+      where itemId = #{itemId}
   </select>
 
-    <select id="getItemListByProduct" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Item">
-select itemId,productId,name,price,logo,detail
-from item
-where productId = #{productId}
+  <select id="getItemListByProduct" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Item">
+      select itemId,productId,name as itemName,price,logo,detail
+      from item
+      where productId = #{productId}
   </select>
 
 
-    <select id="getCartQuantity" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-select count
-from
-cartItemList
-where itemId = #{itemId}
-and cartId = #{cartId}
+  <select id="getCartQuantity" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count
+      from
+      cartItemList
+      where itemId = #{itemId}
+      and cartId = #{cartId}
   </select>
 
-    <update id="updateCartQuantity" parameterType="java.lang.Integer">
-update cartItemList set
-count = #{count}
-where cartId = #{cartId}
-and itemId = #{itemId}
+  <update id="updateCartQuantity" parameterType="java.lang.Integer">
+      update cartItemList set
+      count = #{count}
+      where cartId = #{cartId}
+      and itemId = #{itemId}
   </update>
 
 

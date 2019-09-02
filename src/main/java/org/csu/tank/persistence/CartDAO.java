@@ -7,7 +7,16 @@ import org.csu.tank.domain.Item;
 import java.util.List;
 
 public interface CartDAO {
-    List<CartItem> getCartItemsByUsername(String username);
+
+
+        /*
+        增加item
+        删除item
+        增加数量
+        结算
+        获取购物车
+        */
+List<CartItem> getCartItemsByUsername(String username);
 
     void insertCartItem(Item item);
 
