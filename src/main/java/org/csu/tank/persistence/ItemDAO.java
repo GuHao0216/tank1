@@ -8,11 +8,11 @@ import java.util.Map;
 public interface ItemDAO {
     List<Item> searchItemList(String keywords);
 
-    void updateInventoryQuantity(Map<String, Object> param);
+    void updateCartQuantity(int cartId,int itemId,int count);
 
-    int getInventoryQuantity(String itemId);
+    int getCartQuantity(int itemId);
 
-    List<Item> getItemListByProduct(String productId);
+    List<Item> getItemListByProduct(int productId);
 
-    Item getItem(String itemId);
+    Item getItem(int itemId);
 }

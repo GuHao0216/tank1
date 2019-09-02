@@ -26,9 +26,9 @@ public class AccountServiceImpl implements AccountService {
     public void insertAccount(Account account) {
         accountDAO.insertAccount(account);
         accountDAO.insertProfile(account);
+        accountDAO.insertAddress(account);
 
     }
-
 
 
 

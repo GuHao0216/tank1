@@ -11,6 +11,8 @@ public interface AccountDAO {
 
     void insertProfile(Account account);
 
+    void insertAddress(Account account);
+
     void updateAccount(Account account);  //修改账户信息
 
     void updateProfile(Account account);  //修改账户信息

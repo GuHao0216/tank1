@@ -3,5 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.csu.tank.persistence.CartDAO">
+    <select id="getCartItemsByUsername" parameterType="java.lang.String" resultType="org.csu.tank.domain.CartItem">
+select cartItemList.itemId,cartItemList.count
+from cartItemList,cart
+where cart.cartId = cartItemList.cartId and cart.username = #{username}
+  </select>
 
+    <insert id="insertCartItem" parameterType="org.csu.tank.domain.Item">
+    insert into cartItemList
+     (itemId,count)
+    VALUES
+      (#{itemId}, #{count})
+  </insert>
+
+
+    <delete id="deleteCartItem" parameterType="org.csu.tank.domain.CartItem">
+    delete from cartItemList
+    where itemId = #{itemId}
+  </delete>
+
+    <update id="increment" parameterType="org.csu.tank.domain.CartItem">
+       update cartItemList set
+count = #{count}
+where cartId = #{cartId}
+and itemId = #{itemId}
+    </update>
+
+    <delete id="deleteCartItem" parameterType="org.csu.tank.domain.CartItem">
+    delete from cartItemList
+    where itemId = #{itemId}
+  </delete>
+
+
+    <delete id="checkOut" parameterType="org.csu.tank.domain.Cart">
+    delete from cartItemList
+    where cartId = #{cartId}
+  </delete>
 </mapper>

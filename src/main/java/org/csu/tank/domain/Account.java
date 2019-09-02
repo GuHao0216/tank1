@@ -1,10 +1,10 @@
 package org.csu.tank.domain;
 
 public class Account {
-    private String  username;
-    private String  nickname;
-    private String  phone;
-    private String  head;
+    private String username;
+    private String nickname;
+    private String phone;
+    private String head;
     private String password;
     private String addressId;
     private String receiveName;
@@ -28,6 +28,7 @@ public class Account {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
     public String getPhone() {
         return phone;
     }
@@ -83,8 +84,6 @@ public class Account {
     public void setReceiveAddress(String receiveAddress) {
         this.receiveAddress = receiveAddress;
     }
-
-
 
 
 }

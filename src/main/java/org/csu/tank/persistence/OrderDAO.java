@@ -7,7 +7,7 @@ import org.csu.tank.domain.OrderItem;
 import java.util.List;
 
 public interface OrderDAO {
-    List<OrderItem> getOrderItemsByUsername(String username);
+    List<OrderItem> getOrdersByUsername(String username);
 
     void insertOrder(int itemId, int count);
 

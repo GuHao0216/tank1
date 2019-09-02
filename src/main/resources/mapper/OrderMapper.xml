@@ -3,5 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.csu.tank.persistence.OrderDAO">
+    <select id="getOrdersByUsername" parameterType="java.lang.String" resultType="org.csu.tank.domain.OrderItem">
+select orderId,username,status,total,addressId
+from order
+where username = #{username}
+  </select>
 
+    <insert id="insertOrder" parameterType="java.lang.Integer">
+  insert into order(orderId,username,status,total,addressId)
+values
+(#{orderId},#{username},#{{status},#{total},#{addressId})
+  </insert>
+
+
+    <update id="changeOrderStatus" parameterType="java.lang.Integer">
+    update order set
+status = #{status}
+    </update>
+
+    <select id="getOrderDetail" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">
+select order.orderId,order.username,order.status,order.total,
+address.receiveName,address.receivePhone,address.receiveAddress
+where order.username = #{username}
+and order.addressId = address.addressId
+and order.username = address.username
+  </select>
 </mapper>
