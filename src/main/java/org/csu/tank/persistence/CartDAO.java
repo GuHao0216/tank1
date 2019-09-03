@@ -16,9 +16,11 @@ public interface CartDAO {
         结算
         获取购物车
         */
-List<CartItem> getCartItemsByUsername(String username);
+    List<CartItem> getCartItemsByUsername(String username);
 
-    void insertCartItem(Item item);
+    Cart getCartByUsername(String username);
+
+    void insertCartItem(CartItem cartItem);
 
     void deleteCartItem(CartItem cartItem);
 

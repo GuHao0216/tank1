@@ -9,7 +9,7 @@ public class Order {
     private int status;
     private String username;
     private String total;
-    private final List<CartItem> itemList = new ArrayList<CartItem>();
+    private final List<OrderItem> itemList = new ArrayList<OrderItem>();
 
     public int getOrderId() {
         return orderId;
@@ -52,8 +52,8 @@ public class Order {
         this.total = total;
     }
 
-    public List<CartItem> getItemList() {
+
+    public List<OrderItem> getItemList() {
         return itemList;
     }
-
 }

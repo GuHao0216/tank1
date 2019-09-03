@@ -9,7 +9,14 @@
         where cart.cartId = cartItemList.cartId and cart.username = #{username}
   </select>
 
-    <insert id="insertCartItem" parameterType="org.csu.tank.domain.Item">
+    <select id="getCartByUsername" parameterType="java.lang.String" resultType="org.csu.tank.domain.Cart">
+        select cartId,username,total
+        from cart
+        where username = #{username}
+  </select>
+
+
+    <insert id="insertCartItem" parameterType="org.csu.tank.domain.CartItem">
         insert into cartItemList
          (cartId,itemId,count)
         VALUES

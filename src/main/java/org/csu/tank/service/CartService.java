@@ -7,9 +7,12 @@ import org.csu.tank.domain.Item;
 import java.util.List;
 
 public interface CartService {
-    void insertCartItem(Item item);
 
-    List<Item> getCartItemsByUsername(String username);
+    Cart getCartByUsername(String username);
+
+    void insertCartItem(Item item,int cartId,int count);
+
+    List<CartItem> getCartItemsByUsername(String username);
 
     void deleteCartItem(CartItem cartItem);
 
