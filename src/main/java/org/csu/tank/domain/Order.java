@@ -1,5 +1,7 @@
 package org.csu.tank.domain;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Order {
     private int addressId;
     private int status;
     private String username;
-    private String total;
+    private BigDecimal total;
     private List<OrderItem> itemList = new ArrayList<OrderItem>();
 
     public int getOrderId() {
@@ -43,11 +45,11 @@ public class Order {
         this.username = username;
     }
 
-    public String getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

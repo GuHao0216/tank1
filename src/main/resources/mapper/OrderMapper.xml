@@ -22,12 +22,17 @@
     </select>
 
 
-    <insert id="insertOrder" parameterType="java.lang.Integer">
+    <insert id="insertOrder" parameterType="org.csu.tank.domain.Order">
       insert into order(orderId,username,status,total,addressId)
       values
       (#{orderId},#{username},#{{status},#{total},#{addressId})
   </insert>
 
+    <insert id="insertOrderItem" parameterType="org.csu.tank.domain.OrderItem">
+      insert into orderItemList(orderId,itemId,count)
+      values
+      (#{orderId},#{itemId},#{count},)
+  </insert>
 
    <update id="changeOrderStatus" parameterType="java.lang.Integer">
       update order set

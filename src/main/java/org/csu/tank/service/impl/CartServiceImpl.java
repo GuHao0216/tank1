@@ -17,6 +17,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCartByUsername(String username) {
         Cart cart = cartDAO.getCartByUsername(username);
+        List<CartItem> cartItemList = cartDAO.getCartItemsByUsername(username);
+        cart.setCartItemList(cartItemList);
         return cart;
     }
 

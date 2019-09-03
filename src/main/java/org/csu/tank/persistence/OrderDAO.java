@@ -15,19 +15,15 @@ public interface OrderDAO {
 
     List<OrderItem> getOrderItemListByOrderId(int orderId);
 
-    void insertOrder(int itemId, int count);
+    void insertOrder(Order order);
 
-//    void insertOrder(Cart cart);
+    void insertOrderItem(OrderItem orderItem);
 
     void changeOrderStatus(int orderId);
 
     Order getOrderDetail(int orderId);
 
-//    void insertCartItem(CartItem cartItem);
-//
-//    void deleteCartItem(CartItem cartItem);
-//
-//    void increment(CartItem cartItem);
+
 
 
 }

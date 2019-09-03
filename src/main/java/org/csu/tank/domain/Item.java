@@ -1,10 +1,12 @@
 package org.csu.tank.domain;
 
+import java.math.BigDecimal;
+
 public class Item {
     private int itemId;
     private int productId;
     private String itemName;
-    private String price;
+    private BigDecimal price;
     private String logo;
     private String detail;
 
@@ -24,11 +26,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

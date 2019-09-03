@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-
+    private int cartId;
     private String username;
     private String total;
-    private final List<CartItem> itemList = new ArrayList<CartItem>();
+    private List<CartItem> cartItemList = new ArrayList<CartItem>();
 
-    private int cartId;
+
 
     public int getCartId() {
         return cartId;
@@ -35,9 +35,12 @@ public class Cart {
         this.total = total;
     }
 
-    public List<CartItem> getItemList() {
-        return itemList;
+
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
     }
 
-
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
+    }
 }

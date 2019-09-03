@@ -6,7 +6,7 @@ public class Account {
     private String phone;
     private String head;
     private String password;
-    private String addressId;
+    private int []addressId;
     private String receiveName;
     private String receivePhone;
     private String receiveAddress;
@@ -53,11 +53,11 @@ public class Account {
         this.password = password;
     }
 
-    public String getAddressId() {
+    public int[] getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int[] addressId) {
         this.addressId = addressId;
     }
 

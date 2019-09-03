@@ -5,7 +5,7 @@ import org.csu.tank.domain.Order;
 import java.util.List;
 
 public interface OrderService {
-    void insertOrder(Order order);
+    void insertOrder(String username,int OrderId,int[] itemId,int[] count,int addressId);
 
     Order getOrder(int orderId);
 
