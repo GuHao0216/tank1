@@ -4,9 +4,11 @@ import org.csu.tank.domain.Item;
 import org.csu.tank.persistence.ItemDAO;
 import org.csu.tank.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CatalogServiceImpl implements CatalogService {
     @Autowired
     private ItemDAO itemDAO;

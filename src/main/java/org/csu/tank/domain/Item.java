@@ -1,8 +1,9 @@
 package org.csu.tank.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Item {
+public class Item implements Serializable {
     private int itemId;
     private int productId;
     private String itemName;

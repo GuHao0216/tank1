@@ -1,11 +1,12 @@
 package org.csu.tank.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private int orderId;
     private int addressId;
     private int status;

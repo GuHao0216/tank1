@@ -35,12 +35,6 @@
         and itemId = #{itemId}
     </update>
 
-    <delete id="deleteCartItem" parameterType="org.csu.tank.domain.CartItem">
-        delete from cartItemList
-        where itemId = #{itemId}
-  </delete>
-
-
     <delete id="checkOut" parameterType="org.csu.tank.domain.Cart">
         delete from cartItemList
         where cartId = #{cartId}

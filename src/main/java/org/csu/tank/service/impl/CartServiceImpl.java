@@ -6,9 +6,11 @@ import org.csu.tank.domain.Item;
 import org.csu.tank.persistence.CartDAO;
 import org.csu.tank.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CartServiceImpl implements CartService {
 
     @Autowired

@@ -1,7 +1,9 @@
 package org.csu.tank.persistence;
 
 import org.csu.tank.domain.Account;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AccountDAO {
     Account getAccountByUsername(String username);
 

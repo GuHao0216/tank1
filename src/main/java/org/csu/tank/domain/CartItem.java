@@ -1,7 +1,9 @@
 package org.csu.tank.domain;
 
 
-public class CartItem {
+import java.io.Serializable;
+
+public class CartItem implements Serializable {
     private int cartId;
     private int itemId;
     private int count;

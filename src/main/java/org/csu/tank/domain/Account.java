@@ -1,6 +1,8 @@
 package org.csu.tank.domain;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     private String username;
     private String nickname;
     private String phone;

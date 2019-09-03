@@ -3,9 +3,11 @@ package org.csu.tank.persistence;
 import org.csu.tank.domain.Cart;
 import org.csu.tank.domain.Order;
 import org.csu.tank.domain.OrderItem;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface OrderDAO {
 
 

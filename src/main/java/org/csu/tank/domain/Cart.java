@@ -1,9 +1,10 @@
 package org.csu.tank.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+public class Cart implements Serializable {
     private int cartId;
     private String username;
     private String total;
