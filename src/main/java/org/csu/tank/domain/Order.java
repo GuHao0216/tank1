@@ -9,7 +9,7 @@ public class Order {
     private int status;
     private String username;
     private String total;
-    private final List<OrderItem> itemList = new ArrayList<OrderItem>();
+    private List<OrderItem> itemList = new ArrayList<OrderItem>();
 
     public int getOrderId() {
         return orderId;
@@ -26,7 +26,6 @@ public class Order {
     public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
-
 
     public int getStatus() {
         return status;
@@ -52,8 +51,11 @@ public class Order {
         this.total = total;
     }
 
-
     public List<OrderItem> getItemList() {
         return itemList;
+    }
+
+    public void setItemList(List<OrderItem> itemList) {
+        this.itemList = itemList;
     }
 }

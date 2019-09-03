@@ -11,6 +11,10 @@ public interface OrderDAO {
 
     List<OrderItem> getOrdersByUsername(String username);
 
+    Order getOrderByOrderId(int orderId);  //通过Id得到Order
+
+    List<OrderItem> getOrderItemListByOrderId(int orderId);
+
     void insertOrder(int itemId, int count);
 
 //    void insertOrder(Cart cart);
