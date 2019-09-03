@@ -16,8 +16,13 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
-    @GetMapping("/catalog/product/{productId}")
-    public List<Item> getItemList(@PathVariable("productId")int productId){
+    @GetMapping("/catalog/product/{productId}/items")
+    public List<Item> getItemListByProductId(@PathVariable("productId") int productId) {
         return catalogService.getItemListByProduct(productId);
+    }
+
+    @GetMapping("/catalog/item/{itemId}")
+    public Item getItem(@PathVariable("itemId") int itemId) {
+        return catalogService.getItem(itemId);
     }
 }

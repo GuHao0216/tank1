@@ -35,6 +35,8 @@
         and itemId = #{itemId}
     </update>
 
+
+
     <delete id="checkOut" parameterType="org.csu.tank.domain.Cart">
         delete from cartItemList
         where cartId = #{cartId}
