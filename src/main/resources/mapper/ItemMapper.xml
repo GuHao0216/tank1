@@ -13,7 +13,7 @@
         logo,
         detail
         from item
-        WHERE name like '%${keywords}%'
+        WHERE name like #{keywords}
   </select>
 
 

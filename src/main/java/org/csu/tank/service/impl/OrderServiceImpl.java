@@ -13,6 +13,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void insertOrder(Order order) {
+        for(int i=0;i<order.getItemList().size();i++){
+           int itemId = order.getItemList().get(i).getItemId();
+           int count = order.getItemList().get(i).getCount();
+            orderDAO.insertOrder(itemId,count);
+        }
+
 
     }
 
@@ -25,6 +31,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersByUsername(String username) {
-        return null;
+        return orderDAO.getOrdersByUsername(username);
     }
 }

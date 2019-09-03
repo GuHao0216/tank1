@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderDAO {
 
 
-    List<OrderItem> getOrdersByUsername(String username);
+    List<Order> getOrdersByUsername(String username);
 
     Order getOrderByOrderId(int orderId);  //通过Id得到Order
 
