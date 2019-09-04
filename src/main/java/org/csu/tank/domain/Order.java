@@ -12,7 +12,7 @@ public class Order implements Serializable {
     private int status;
     private String username;
     private BigDecimal total;
-    private List<OrderItem> itemList = new ArrayList<OrderItem>();
+    private List<OrderItem> orderItemList = new ArrayList<OrderItem>();
 
     public int getOrderId() {
         return orderId;
@@ -54,11 +54,11 @@ public class Order implements Serializable {
         this.total = total;
     }
 
-    public List<OrderItem> getItemList() {
-        return itemList;
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
     }
 
-    public void setItemList(List<OrderItem> itemList) {
-        this.itemList = itemList;
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }

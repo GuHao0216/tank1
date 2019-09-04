@@ -1,5 +1,6 @@
 package org.csu.tank.persistence;
 
+import org.apache.ibatis.annotations.Param;
 import org.csu.tank.domain.Cart;
 import org.csu.tank.domain.Order;
 import org.csu.tank.domain.OrderItem;
@@ -17,15 +18,18 @@ public interface OrderDAO {
 
     List<OrderItem> getOrderItemListByOrderId(int orderId);
 
+    Order getOrderDetail(int orderId);
+
     void insertOrder(Order order);
 
     void insertOrderItem(OrderItem orderItem);
 
-    void changeOrderStatus(int orderId);
-
-    Order getOrderDetail(int orderId);
 
 
 
+    List<Order> getOrdersByStatus(int status);
 
+    int getStatusCount(@Param("username") String username,@Param("status") int status);
+
+    void changeOrderStatus(int orderId,int status);
 }

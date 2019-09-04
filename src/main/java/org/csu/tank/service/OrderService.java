@@ -10,4 +10,12 @@ public interface OrderService {
     Order getOrder(int orderId);
 
     List<Order> getOrdersByUsername(String username);
+
+    Order getOrderDetail(int orderId);
+
+    List<Order> getOrdersByStatus(int status);
+
+    int getStatusCount(String username,int status);
+
+    void changeOrderStatus(int orderId,int status);
 }

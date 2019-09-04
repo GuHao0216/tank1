@@ -56,12 +56,33 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrder(int orderId) {
         Order order = orderDAO.getOrderByOrderId(orderId);
-        order.setItemList(orderDAO.getOrderItemListByOrderId(orderId));
+        order.setOrderItemList(orderDAO.getOrderItemListByOrderId(orderId));
         return order;
     }
 
     @Override
     public List<Order> getOrdersByUsername(String username) {
         return orderDAO.getOrdersByUsername(username);
+    }
+
+    @Override
+    public Order getOrderDetail(int orderId) {
+        return orderDAO.getOrderDetail(orderId);
+    }
+
+    @Override
+    public List<Order> getOrdersByStatus(int status) {
+        return orderDAO.getOrdersByStatus(status);
+    }
+
+    @Override
+    public int getStatusCount(String username, int status) {
+        return orderDAO.getStatusCount(username,status);
+
+    }
+
+    @Override
+    public void changeOrderStatus(int orderId,int status) {
+        orderDAO.changeOrderStatus(orderId,status);
     }
 }

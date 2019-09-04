@@ -18,8 +18,9 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private OrderService orderService;
-
+    @Autowired
     private CatalogService  catalogService;
+
     @GetMapping("/cart/{username}")
     public Cart getCartByUsername(@PathVariable("username")String username){
         return cartService.getCartByUsername(username);

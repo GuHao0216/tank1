@@ -4,19 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.csu.tank.persistence.OrderDAO">
    <select id="getOrdersByUsername" parameterType="java.lang.String" resultType="org.csu.tank.domain.Order">
-        select orderId,username,status,total,addressId
-        from order
-        where username = #{username}
+        SELECT
+        `order`.orderId,
+        `order`.username,
+        `order`.`status`,
+        `order`.total,
+        `order`.addressId
+        FROM
+        `order`
+        WHERE
+        `order`.username = #{username}
   </select>
 
     <select id="getOrderByOrderId" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">
-        select orderId,username,status,total,addressId
-        from order
-        where orderId = #{orderId}
+        SELECT
+        `order`.orderId,
+        `order`.username,
+        `order`.`status`,
+        `order`.total,
+        `order`.addressId
+        FROM
+        `order`
+        WHERE
+        `order`.orderId = #{orderId}
     </select>
 
     <select id="getOrderItemListByOrderId" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.OrderItem">
-        select orderId,itemId,count
+        select orderId,itemId,`count`
         from orderItemList
         where orderId = #{orderId}
     </select>
@@ -29,22 +43,35 @@
   </insert>
 
     <insert id="insertOrderItem" parameterType="org.csu.tank.domain.OrderItem">
-      insert into orderItemList(orderId,itemId,count)
+      insert into orderItemList(orderId,itemId,`count`)
       values
       (#{orderId},#{itemId},#{count})
   </insert>
 
    <update id="changeOrderStatus" parameterType="java.lang.Integer">
-      update order set
+      update `order` set
       status = #{status}
     </update>
 
    <select id="getOrderDetail" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">
-        select order.orderId,order.username,order.status,order.total,
+        select `order`.orderId,`order`.username,`order`.status,`order`.total,
         address.receiveName,address.receivePhone,address.receiveAddress
-        from order,address
-        where order.username = #{username}
-        and order.addressId = address.addressId
-        and order.username = address.username
+        from `order`,address
+        where `order`.username = #{username}
+        and `order`.addressId = address.addressId
+        and `order`.username = address.username
   </select>
+
+    <select id="getOrdersByStatus" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">
+        select *
+        from `order`
+        where `order`.status = #{status}
+    </select>
+
+    <select id="getStatusCount" resultType="java.lang.Integer">
+        select count(*)
+        from
+        `order`
+        where `order`.status = #{status}
+    </select>
 </mapper>
