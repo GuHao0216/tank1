@@ -25,7 +25,8 @@
 
     <delete id="deleteCartItem" parameterType="org.csu.tank.domain.CartItem">
         delete from cartItemList
-        where itemId = #{itemId}
+        where cartId = #{cartId}
+        and itemId = #{itemId}
   </delete>
 
     <update id="increment" parameterType="org.csu.tank.domain.CartItem">
