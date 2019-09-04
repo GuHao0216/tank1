@@ -25,4 +25,13 @@ public class CatalogController {
     public Item getItem(@PathVariable("itemId") int itemId) {
         return catalogService.getItem(itemId);
     }
+    @GetMapping("/catalog/category/{categoryId}/items")
+    public List<Item> getItemListByCategoryId(@PathVariable("categoryId") int categoryId){
+        return catalogService.getItemListByCategory(categoryId);
+    }
+
+    @GetMapping("/catalog/searchItemList/{keyword}/items")
+    public List<Item> searchItemList(@PathVariable("keyword") String keyword){
+        return catalogService.searchItemList(keyword);
+    }
 }

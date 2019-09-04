@@ -6,8 +6,8 @@
 
     <select id="searchItemList" parameterType="java.lang.String" resultType="org.csu.tank.domain.Item">
         select
-        itemId
-        productId
+        itemId,
+        productId,
         name as itemName,
         price,
         logo,
@@ -29,6 +29,12 @@
       where productId = #{productId}
   </select>
 
+    <select id="getItemListByCategory" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Item">
+      select item.itemId,item.productId,item.name as itemName,item.price,item.logo,item.detail
+      from item,product
+      where product.categoryId = #{categoryId}
+      and product.productId = item.productId
+  </select>
 
   <select id="getCartQuantity" parameterType="java.lang.Integer" resultType="java.lang.Integer">
       select count

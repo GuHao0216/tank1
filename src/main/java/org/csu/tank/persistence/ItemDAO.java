@@ -16,5 +16,7 @@ public interface ItemDAO {
 
     List<Item> getItemListByProduct(int productId);
 
+    List<Item> getItemListByCategory(int categoryId);
+
     Item getItem(int itemId);
 }

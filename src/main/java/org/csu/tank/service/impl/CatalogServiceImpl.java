@@ -24,6 +24,11 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
     @Override
+    public List<Item> getItemListByCategory(int categoryId) {
+        return itemDAO.getItemListByCategory(categoryId);
+    }
+
+    @Override
     public Item getItem(int itemId) {
         return itemDAO.getItem(itemId);
     }

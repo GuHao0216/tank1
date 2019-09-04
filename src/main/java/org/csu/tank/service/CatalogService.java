@@ -8,7 +8,9 @@ public interface CatalogService {
 
     List<Item> searchItemList(String keyword);
     List<Item> getItemListByProduct(int productId);
+    List<Item> getItemListByCategory(int categoryId);
 
     Item getItem(int itemId);    //商品展示
+
 
 }
