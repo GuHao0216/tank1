@@ -27,9 +27,15 @@ public class OrderServiceImpl implements OrderService {
         order.setAddressId(addressId);
         order.setOrderId(orderId);
         order.setStatus(0);
-
-
         BigDecimal totalPrice = new BigDecimal(0);
+        for (int i = 0; i < itemId.length; i++) {
+            Item item = itemDAO.getItem(itemId[i]);
+            BigDecimal unitPrice = item.getPrice();
+            totalPrice = totalPrice.add(unitPrice.multiply(new BigDecimal(count[i])));
+        }
+        order.setTotal(totalPrice);
+        orderDAO.insertOrder(order);
+
         //itemDAO.getItem(itemId);
         for (int i = 0; i < itemId.length; i++) {
             //价格
@@ -44,8 +50,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setCount(count[i]);
             orderDAO.insertOrderItem(orderItem);
         }
-        order.setTotal(totalPrice);
-        orderDAO.insertOrder(order);
+
     }
 
     @Override

@@ -18,5 +18,5 @@ public interface CartService {
 
     void increment(CartItem cartItem);
 
-    void checkOut(Cart cart);
+    void checkOut(CartItem cartItem);
 }

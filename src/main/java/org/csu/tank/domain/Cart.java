@@ -1,13 +1,14 @@
 package org.csu.tank.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart implements Serializable {
     private int cartId;
     private String username;
-    private String total;
+    private BigDecimal total;
     private List<CartItem> cartItemList = new ArrayList<CartItem>();
 
 
@@ -28,14 +29,14 @@ public class Cart implements Serializable {
         this.username = username;
     }
 
-    public String getTotal() {
+
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
-
 
     public List<CartItem> getCartItemList() {
         return cartItemList;

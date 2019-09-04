@@ -6,6 +6,7 @@ import org.csu.tank.domain.CartItem;
 import org.csu.tank.domain.Item;
 import org.csu.tank.service.CartService;
 import org.csu.tank.service.CatalogService;
+import org.csu.tank.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +17,17 @@ public class CartController {
     @Autowired
     private CartService cartService;
     @Autowired
+    private OrderService orderService;
+
     private CatalogService  catalogService;
     @GetMapping("/cart/{username}")
-
     public Cart getCartByUsername(@PathVariable("username")String username){
         return cartService.getCartByUsername(username);
     }
 
     @PostMapping("/cart/add")
-
     public boolean insertCartItem(@RequestBody CartItem cartItem){
         try {
-
             Item item = catalogService.getItem(cartItem.getItemId());
             cartService.insertCartItem(item,cartItem.getCartId(),cartItem.getCount());
             return true;
@@ -39,10 +39,11 @@ public class CartController {
     }
 
     @DeleteMapping("/cart/delete")
-
     public boolean deleteCartItem(@RequestBody CartItem cartItem){
         try {
-            System.out.println(cartItem.getCartId());
+            if(cartItem.getCartId() == 0)
+                return false;
+
             cartService.deleteCartItem(cartItem);
             return true;
         }
@@ -51,10 +52,12 @@ public class CartController {
         }
     }
 
+    //true false 返回错误
     @PutMapping("/cart/recount")
-
     public boolean recount(@RequestBody CartItem cartItem){
         try {
+            if (cartItem.getCount()<=0)
+                return false;
             cartService.increment(cartItem);
             return true;
         }
@@ -63,15 +66,22 @@ public class CartController {
         }
     }
 
+    //true false可以
     @DeleteMapping("/cart/checkOut")
-
-    public boolean checkOut(@RequestBody Cart cart){
+    public boolean checkOut(@RequestBody CartItem []cartItem,@RequestParam String username,@RequestParam int addressId){
         try {
-
-            cartService.checkOut(cart);
+            int []itemId = new int[cartItem.length];
+            int []count = new int [cartItem.length];
+            for (int i = 0;i<cartItem.length;i++){
+                cartService.deleteCartItem(cartItem[i]);
+                itemId[i] = cartItem[i].getItemId();
+                count[i] = cartItem[i].getCount();
+            }
+            orderService.insertOrder(username,1,itemId,count,addressId);
             return true;
         }
         catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }

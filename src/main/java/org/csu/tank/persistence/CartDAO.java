@@ -28,5 +28,5 @@ public interface CartDAO {
 
     void increment(CartItem cartItem);
 
-    void checkOut(Cart cart);
+    void checkOut(CartItem cartItem);
 }

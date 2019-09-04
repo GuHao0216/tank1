@@ -50,7 +50,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void checkOut(Cart cart) {
-        cartDAO.checkOut(cart);
+    public void checkOut(CartItem cartItem) {
+        cartDAO.checkOut(cartItem);
+
     }
 }

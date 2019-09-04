@@ -38,7 +38,7 @@
 
 
 
-    <delete id="checkOut" parameterType="org.csu.tank.domain.Cart">
+    <delete id="checkOut" parameterType="org.csu.tank.domain.CartItem">
         delete from cartItemList
         where cartId = #{cartId}
         and itemId = #{itemId}
