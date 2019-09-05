@@ -1,5 +1,6 @@
 package org.csu.tank.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.csu.tank.domain.Item;
 import org.csu.tank.domain.Order;
 import org.csu.tank.service.OrderService;
@@ -40,8 +41,18 @@ public class OrderController {
     public List<Order> getOrdersByUsername(@PathVariable String username){
         return orderService.getOrdersByUsername(username);
     }
+
+    /*
+    * 获取商品订单详情：
+    * 订单状态
+    * 收件人+收件地址+收件电话
+    * OrderItemList
+    * order总价
+    *
+    * 之前的orderDAO需要修改，需要设置orderItemList
+    * */
     @GetMapping("/orderDetail/{orderId}")
-    public Order getOrderDetail(@PathVariable int orderId){
+    public JSONObject getOrderDetail(@PathVariable int orderId){
         return orderService.getOrderDetail(orderId);
     }
 

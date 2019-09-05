@@ -54,12 +54,16 @@
     </update>
 
    <select id="getOrderDetail" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">
-        select `order`.orderId,`order`.username,`order`.status,`order`.total,
-        address.receiveName,address.receivePhone,address.receiveAddress
-        from `order`,address
-        where `order`.username = #{username}
-        and `order`.addressId = address.addressId
-        and `order`.username = address.username
+        SELECT
+        `order`.orderId,
+        `order`.username,
+        `order`.`status`,
+        `order`.total,
+        `order`.addressId
+        FROM
+        `order`
+        WHERE
+        `order`.orderId = #{orderId}
   </select>
 
     <select id="getOrdersByStatus" parameterType="java.lang.Integer" resultType="org.csu.tank.domain.Order">

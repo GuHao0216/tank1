@@ -47,4 +47,10 @@
           (#{username}, #{receiveName},#{receivePhone},#{receiveAddress})
   </insert>
 
+    <select id="getAddress" resultType="org.csu.tank.domain.Account">
+        select receiveName,receivePhone,receiveAddress
+        from address
+        where username = #{username}
+        and addressId = #{addressId}
+    </select>
 </mapper>

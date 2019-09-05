@@ -1,8 +1,12 @@
 package org.csu.tank.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import netscape.javascript.JSObject;
+import org.csu.tank.domain.Account;
 import org.csu.tank.domain.Item;
 import org.csu.tank.domain.Order;
 import org.csu.tank.domain.OrderItem;
+import org.csu.tank.persistence.AccountDAO;
 import org.csu.tank.persistence.ItemDAO;
 import org.csu.tank.persistence.OrderDAO;
 import org.csu.tank.service.OrderService;
@@ -18,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDAO orderDAO;
     @Autowired
     private ItemDAO itemDAO;
+    @Autowired
+    private AccountDAO accountDAO;
 
     @Override
     public void insertOrder(String username, int orderId, int[] itemId, int[] count, int addressId) {
@@ -62,17 +68,35 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersByUsername(String username) {
-        return orderDAO.getOrdersByUsername(username);
+        List<Order> orderList = orderDAO.getOrdersByUsername(username);
+        for (int i =0; i<orderList.size(); i++){
+            Order order = orderList.get(i);
+            order.setOrderItemList(orderDAO.getOrderItemListByOrderId(order.getOrderId()));
+            orderList.set(i,order);
+        }
+        return orderList;
     }
 
     @Override
-    public Order getOrderDetail(int orderId) {
-        return orderDAO.getOrderDetail(orderId);
+    public JSONObject getOrderDetail(int orderId) {
+        JSONObject jsonObject = new JSONObject();
+        Order order = orderDAO.getOrderDetail(orderId);
+        order.setOrderItemList(orderDAO.getOrderItemListByOrderId(orderId));
+        Account account = accountDAO.getAddress(order.getUsername(),order.getAddressId());
+        jsonObject.put("order",order);
+        jsonObject.put("account",account);
+        return jsonObject;
     }
 
     @Override
     public List<Order> getOrdersByStatus(int status) {
-        return orderDAO.getOrdersByStatus(status);
+        List<Order> orderList = orderDAO.getOrdersByStatus(status);
+        for (int i =0; i<orderList.size(); i++){
+            Order order = orderList.get(i);
+            order.setOrderItemList(orderDAO.getOrderItemListByOrderId(order.getOrderId()));
+            orderList.set(i,order);
+        }
+        return orderList;
     }
 
     @Override

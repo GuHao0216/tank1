@@ -33,6 +33,10 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+    @Override
+    public Account getAddress(String username, int addressId) {
+        return accountDAO.getAddress(username,addressId);
+    }
 
 
 }

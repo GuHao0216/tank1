@@ -1,5 +1,6 @@
 package org.csu.tank.service;
 
+import com.alibaba.fastjson.JSONObject;
 import org.csu.tank.domain.Order;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface OrderService {
 
     List<Order> getOrdersByUsername(String username);
 
-    Order getOrderDetail(int orderId);
+    JSONObject getOrderDetail(int orderId);
 
     List<Order> getOrdersByStatus(int status);
 
