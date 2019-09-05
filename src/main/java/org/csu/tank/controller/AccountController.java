@@ -57,7 +57,7 @@ public class AccountController {
         } catch (Exception e) {
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return fail("注册失败！");
+            return fail("用户已存在");
         }
     }
 }

@@ -24,13 +24,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/item/checkOut")
-    public Response checkOut(@RequestParam int itemId, @RequestParam String username, @RequestParam int addressId, @RequestParam int count){
+    public Response checkOut(@RequestParam int itemId, @RequestParam int addressId, @RequestParam int count,HttpServletRequest request){
         try {
             int [] itemId1 = new int[1];
             int [] count1 = new int[1];
             itemId1[0] = itemId;
             count1[0] = count;
             int orderId =(int) (Math.random()*100000000);
+            String username = JwtUtil.getUsernameByToken(request.getHeader("token"));
             orderService.insertOrder(username,orderId,itemId1,count1,addressId);
             JSONObject object = new JSONObject();
             object.put("flag", true);
@@ -50,7 +51,7 @@ public class OrderController {
         return success(object);
     }
 
-    @GetMapping("/getOrder/{username}")
+    @GetMapping("/order")
     public Response getOrdersByUsername(HttpServletRequest request){
         String tokenName = JwtUtil.getUsernameByToken(request.getHeader("token"));
         JSONObject object = new JSONObject();
@@ -78,7 +79,7 @@ public class OrderController {
     public Response getStatusCount(HttpServletRequest request,@PathVariable int status){
         String tokenName = JwtUtil.getUsernameByToken(request.getHeader("token"));
         JSONObject object = new JSONObject();
-        object.put("status",orderService.getStatusCount(tokenName,status));
+        object.put("count",orderService.getStatusCount(tokenName,status));
         return success(object);
     }
 
