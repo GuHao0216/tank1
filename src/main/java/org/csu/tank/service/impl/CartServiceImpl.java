@@ -27,6 +27,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void insertCartItem(Item item,int cartId,int count) {
         CartItem cartItem = new CartItem();
+
         cartItem.setCartId(cartId);
         cartItem.setItemId(item.getItemId());
         cartItem.setCount(count);

@@ -48,9 +48,11 @@ public class CartController {
             return success(object);
         }
         catch (Exception e){
+            e.printStackTrace();
+            cartService.increment(cartItem);
             JSONObject object = new JSONObject();
-            object.put("flag", false);
-            return fail("添加商品进购物车失败！");
+            object.put("flag", true);
+            return success(object);
         }
 
     }
@@ -98,7 +100,7 @@ public class CartController {
     }
 
     @DeleteMapping("/cart/checkOut")
-    public Response checkOut(@RequestBody CartItem []cartItem,@RequestParam String username,@RequestParam int addressId){
+    public Response checkOut(@RequestBody CartItem []cartItem,HttpServletRequest request,@RequestParam int addressId){
         try {
             int []itemId = new int[cartItem.length];
             int []count = new int [cartItem.length];
@@ -107,12 +109,15 @@ public class CartController {
                 itemId[i] = cartItem[i].getItemId();
                 count[i] = cartItem[i].getCount();
             }
-            orderService.insertOrder(username,1,itemId,count,addressId);
+            String username = JwtUtil.getUsernameByToken(request.getHeader("token"));
+            int orderId =(int) (Math.random()*100000000);
+            orderService.insertOrder(username,orderId,itemId,count,addressId);
             JSONObject object = new JSONObject();
             object.put("flag", true);
             return success(object);
         }
         catch (Exception e){
+            e.printStackTrace();
             JSONObject object = new JSONObject();
             object.put("flag", false);
             return fail("结算失败！");

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class TokenValidationInterceptor implements HandlerInterceptor {
-    private static String[] EXClUDE_PATH = {"/login", "/register"};
+    private static String[] EXClUDE_PATH = {"/login", "/register","/catalog"};
 
     @Value("${jwt.token.check}")
     private Boolean checkToken;
