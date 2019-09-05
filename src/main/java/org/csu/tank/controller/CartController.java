@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.csu.tank.base.Response.fail;
 import static org.csu.tank.base.Response.success;
 
 @RestController
@@ -49,7 +50,7 @@ public class CartController {
         catch (Exception e){
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return success(object);
+            return fail("添加商品进购物车失败！");
         }
 
     }
@@ -71,7 +72,7 @@ public class CartController {
         catch (Exception e){
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return success(object);
+            return fail("删除购物车商品失败！");
         }
     }
 
@@ -92,7 +93,7 @@ public class CartController {
         catch (Exception e){
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return success(object);
+            return fail("修改购物车商品数目失败！");
         }
     }
 
@@ -114,7 +115,7 @@ public class CartController {
         catch (Exception e){
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return success(object);
+            return fail("结算失败！");
         }
     }
 

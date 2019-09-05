@@ -1,13 +1,20 @@
 package org.csu.tank.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.csu.tank.base.Response;
 import org.csu.tank.domain.Item;
 import org.csu.tank.domain.Order;
 import org.csu.tank.service.OrderService;
+import org.csu.tank.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static org.csu.tank.base.Response.success;
+import static org.csu.tank.base.Response.fail;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")
@@ -17,7 +24,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/item/checkOut")
-    public boolean checkOut(@RequestParam int itemId, @RequestParam String username, @RequestParam int addressId, @RequestParam int count){
+    public Response checkOut(@RequestParam int itemId, @RequestParam String username, @RequestParam int addressId, @RequestParam int count){
         try {
             int [] itemId1 = new int[1];
             int [] count1 = new int[1];
@@ -25,21 +32,30 @@ public class OrderController {
             count1[0] = count;
             int orderId =(int) (Math.random()*100000000);
             orderService.insertOrder(username,orderId,itemId1,count1,addressId);
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }
         catch (Exception e){
-            e.printStackTrace();
-            return false;
+            JSONObject object = new JSONObject();
+            object.put("flag", false);
+            return success(object);
         }
     }
+
     @GetMapping("/order/{orderId}")
-    public Order getOrder(@PathVariable int orderId){
-        return orderService.getOrder(orderId);
+    public Response getOrder(@PathVariable int orderId){
+        JSONObject object = new JSONObject();
+        object.put("order",orderService.getOrder(orderId));
+        return success(object);
     }
 
     @GetMapping("/getOrder/{username}")
-    public List<Order> getOrdersByUsername(@PathVariable String username){
-        return orderService.getOrdersByUsername(username);
+    public Response getOrdersByUsername(HttpServletRequest request){
+        String tokenName = JwtUtil.getUsernameByToken(request.getHeader("token"));
+        JSONObject object = new JSONObject();
+        object.put("orderList",orderService.getOrdersByUsername(tokenName));
+        return success(object);
     }
 
     /*
@@ -52,25 +68,36 @@ public class OrderController {
     * 之前的orderDAO需要修改，需要设置orderItemList
     * */
     @GetMapping("/orderDetail/{orderId}")
-    public JSONObject getOrderDetail(@PathVariable int orderId){
-        return orderService.getOrderDetail(orderId);
+    public Response getOrderDetail(@PathVariable int orderId){
+        JSONObject object = new JSONObject();
+        object.put("detail",orderService.getOrderDetail(orderId));
+        return success(object);
     }
 
-    @GetMapping("/getStatusCount/{username}/{status}")
-    public int getStatusCount(@PathVariable String username,@PathVariable int status){
-        return orderService.getStatusCount(username,status);
+    @GetMapping("/getStatusCount/{status}")
+    public Response getStatusCount(HttpServletRequest request,@PathVariable int status){
+        String tokenName = JwtUtil.getUsernameByToken(request.getHeader("token"));
+        JSONObject object = new JSONObject();
+        object.put("status",orderService.getStatusCount(tokenName,status));
+        return success(object);
     }
+
     @GetMapping("/getOrdersByStatus/{status}")
-    public List<Order> getOrdersByStatus(@PathVariable int status){
-        return orderService.getOrdersByStatus(status);
+    public Response getOrdersByStatus(@PathVariable int status){
+        JSONObject object = new JSONObject();
+        object.put("orderList",orderService.getOrdersByStatus(status));
+        return success(object);
     }
+
     @PutMapping("/changeOrderStatus/{orderId}/{status}")
-    public boolean changeOrderStatus(@PathVariable int orderId,@PathVariable int status) {
+    public Response changeOrderStatus(@PathVariable int orderId,@PathVariable int status) {
         try {
             orderService.changeOrderStatus(orderId,status);
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }catch (Exception e){
-            return false;
+            return fail("改变状态失败！");
         }
 
     }

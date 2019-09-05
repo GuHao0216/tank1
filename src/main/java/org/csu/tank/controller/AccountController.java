@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-
+import static org.csu.tank.base.Response.fail;
 import static org.csu.tank.base.Response.success;
 
 @RestController
@@ -34,7 +34,7 @@ public class AccountController {
             return success(object);
 
         } else
-            return null;
+            return fail("用户名或密码错误，请重试！");
     }
 
 
@@ -57,7 +57,7 @@ public class AccountController {
         } catch (Exception e) {
             JSONObject object = new JSONObject();
             object.put("flag", false);
-            return success(object);
+            return fail("注册失败！");
         }
     }
 }
