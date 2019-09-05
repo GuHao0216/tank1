@@ -1,7 +1,10 @@
 package org.csu.tank.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import org.csu.tank.base.Response;
 import org.csu.tank.domain.Item;
 import org.csu.tank.service.CatalogService;
+import org.csu.tank.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.csu.tank.base.Response.success;
+
 @RestController
 @CrossOrigin(allowCredentials = "true")
 public class CatalogController {
@@ -17,21 +22,32 @@ public class CatalogController {
     private CatalogService catalogService;
 
     @GetMapping("/catalog/product/{productId}/items")
-    public List<Item> getItemListByProductId(@PathVariable("productId") int productId) {
-        return catalogService.getItemListByProduct(productId);
+    public Response getItemListByProductId(@PathVariable("productId") int productId) {
+        JSONObject object = new JSONObject();
+        object.put("itemList", catalogService.getItemListByProduct(productId));
+        return success(object);
+
     }
 
     @GetMapping("/catalog/item/{itemId}")
-    public Item getItem(@PathVariable("itemId") int itemId) {
-        return catalogService.getItem(itemId);
+    public Response getItem(@PathVariable("itemId") int itemId) {
+        JSONObject object = new JSONObject();
+        object.put("item", catalogService.getItem(itemId));
+        return success(object);
     }
+
     @GetMapping("/catalog/category/{categoryId}/items")
-    public List<Item> getItemListByCategoryId(@PathVariable("categoryId") int categoryId){
-        return catalogService.getItemListByCategory(categoryId);
+    public Response getItemListByCategoryId(@PathVariable("categoryId") int categoryId){
+        JSONObject object = new JSONObject();
+        object.put("itemList", catalogService.getItemListByCategory(categoryId));
+        return success(object);
+
     }
 
     @GetMapping("/catalog/searchItemList/{keyword}/items")
-    public List<Item> searchItemList(@PathVariable("keyword") String keyword){
-        return catalogService.searchItemList(keyword);
+    public Response searchItemList(@PathVariable("keyword") String keyword){
+        JSONObject object = new JSONObject();
+        object.put("itemList", catalogService.searchItemList(keyword));
+        return success(object);
     }
 }

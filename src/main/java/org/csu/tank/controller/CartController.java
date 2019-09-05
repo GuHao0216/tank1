@@ -1,14 +1,22 @@
 package org.csu.tank.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
+import org.csu.tank.base.Response;
 import org.csu.tank.domain.Cart;
 import org.csu.tank.domain.CartItem;
 import org.csu.tank.domain.Item;
 import org.csu.tank.service.CartService;
 import org.csu.tank.service.CatalogService;
 import org.csu.tank.service.OrderService;
+import org.csu.tank.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+import static org.csu.tank.base.Response.success;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")
@@ -21,55 +29,75 @@ public class CartController {
     @Autowired
     private CatalogService  catalogService;
 
-    @GetMapping("/cart/{username}")
-    public Cart getCartByUsername(@PathVariable("username")String username){
-        return cartService.getCartByUsername(username);
+    @GetMapping("/cart")
+    public Response getCartByUsername(HttpServletRequest request){
+        String tokenName = JwtUtil.getUsernameByToken(request.getHeader("token"));
+        JSONObject object = new JSONObject();
+        object.put("cart", cartService.getCartByUsername(tokenName));
+        return success(object);
     }
 
     @PostMapping("/cart/add")
-    public boolean insertCartItem(@RequestBody CartItem cartItem){
+    public Response insertCartItem(@RequestBody CartItem cartItem){
         try {
             Item item = catalogService.getItem(cartItem.getItemId());
             cartService.insertCartItem(item,cartItem.getCartId(),cartItem.getCount());
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }
         catch (Exception e){
-            return false;
+            JSONObject object = new JSONObject();
+            object.put("flag", false);
+            return success(object);
         }
 
     }
 
     @DeleteMapping("/cart/delete")
-    public boolean deleteCartItem(@RequestBody CartItem cartItem){
+    public Response deleteCartItem(@RequestBody CartItem cartItem){
         try {
-            if(cartItem.getCartId() == 0)
-                return false;
+            if(cartItem.getCartId() == 0) {
+                JSONObject object = new JSONObject();
+                object.put("flag", false);
+                return success(object);
+            }
 
             cartService.deleteCartItem(cartItem);
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }
         catch (Exception e){
-            return false;
+            JSONObject object = new JSONObject();
+            object.put("flag", false);
+            return success(object);
         }
     }
 
-    //true false 返回错误
+
     @PutMapping("/cart/recount")
-    public boolean recount(@RequestBody CartItem cartItem){
+    public Response recount(@RequestBody CartItem cartItem){
         try {
-            if (cartItem.getCount()<=0)
-                return false;
+            if (cartItem.getCount()<=0) {
+                JSONObject object = new JSONObject();
+                object.put("flag", false);
+                return success(object);
+            }
             cartService.increment(cartItem);
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }
         catch (Exception e){
-            return false;
+            JSONObject object = new JSONObject();
+            object.put("flag", false);
+            return success(object);
         }
     }
 
-    //true false可以
     @DeleteMapping("/cart/checkOut")
-    public boolean checkOut(@RequestBody CartItem []cartItem,@RequestParam String username,@RequestParam int addressId){
+    public Response checkOut(@RequestBody CartItem []cartItem,@RequestParam String username,@RequestParam int addressId){
         try {
             int []itemId = new int[cartItem.length];
             int []count = new int [cartItem.length];
@@ -79,11 +107,14 @@ public class CartController {
                 count[i] = cartItem[i].getCount();
             }
             orderService.insertOrder(username,1,itemId,count,addressId);
-            return true;
+            JSONObject object = new JSONObject();
+            object.put("flag", true);
+            return success(object);
         }
         catch (Exception e){
-            e.printStackTrace();
-            return false;
+            JSONObject object = new JSONObject();
+            object.put("flag", false);
+            return success(object);
         }
     }
 
