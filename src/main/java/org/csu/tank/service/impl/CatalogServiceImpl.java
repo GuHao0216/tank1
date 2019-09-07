@@ -30,6 +30,8 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Override
     public Item getItem(int itemId) {
+//        Item item = itemDAO.getItem(itemId);
+
         return itemDAO.getItem(itemId);
     }
 }

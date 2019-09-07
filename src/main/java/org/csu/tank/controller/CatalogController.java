@@ -32,8 +32,16 @@ public class CatalogController {
     @GetMapping("/catalog/item/{itemId}")
     public Response getItem(@PathVariable("itemId") int itemId) {
         JSONObject object = new JSONObject();
+        String Detail = catalogService.getItem(itemId).getDetail();
+        if(Detail == null)
+            object.put("itemDetail",null);
+        else {
+            String[] detail = catalogService.getItem(itemId).getDetail().split(";");
+            object.put("itemDetail", detail);
+        }
         object.put("item", catalogService.getItem(itemId));
         return success(object);
+
     }
 
     @GetMapping("/catalog/category/{categoryId}/items")
