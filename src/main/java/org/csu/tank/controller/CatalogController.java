@@ -21,10 +21,12 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
-    @GetMapping("/catalog/product/{productId}/items")
-    public Response getItemListByProductId(@PathVariable("productId") int productId) {
+    @GetMapping("/catalog/product/{productId}/items/{page}")
+    public Response getItemListByProductId(@PathVariable("productId") int productId,@PathVariable("page") int page) {
         JSONObject object = new JSONObject();
-        object.put("itemList", catalogService.getItemListByProduct(productId));
+        List<Item> itemList = catalogService.getItemListByProduct(productId);
+        List<Item> newItemList = itemList.subList((page-1)*10,page*10);
+        object.put("itemList", newItemList);
         return success(object);
 
     }
@@ -44,18 +46,22 @@ public class CatalogController {
 
     }
 
-    @GetMapping("/catalog/category/{categoryId}/items")
-    public Response getItemListByCategoryId(@PathVariable("categoryId") int categoryId){
+    @GetMapping("/catalog/category/{categoryId}/items/{page}")
+    public Response getItemListByCategoryId(@PathVariable("categoryId") int categoryId,@PathVariable("page") int page){
         JSONObject object = new JSONObject();
-        object.put("itemList", catalogService.getItemListByCategory(categoryId));
+        List<Item> itemList = catalogService.getItemListByCategory(categoryId);
+        List<Item> newItemList = itemList.subList((page-1)*10,page*10);
+        object.put("itemList", newItemList);
         return success(object);
 
     }
 
-    @GetMapping("/catalog/searchItemList/{keyword}/items")
-    public Response searchItemList(@PathVariable("keyword") String keyword){
+    @GetMapping("/catalog/searchItemList/{keyword}/items/{page}")
+    public Response searchItemList(@PathVariable("keyword") String keyword,@PathVariable("page") int page){
         JSONObject object = new JSONObject();
-        object.put("itemList", catalogService.searchItemList(keyword));
+        List<Item> itemList = catalogService.searchItemList(keyword);
+        List<Item> newItemList = itemList.subList((page-1)*10,page*10);
+        object.put("itemList", newItemList);
         return success(object);
     }
 }
